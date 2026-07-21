@@ -1,0 +1,8 @@
+*
+!.gitignore
+!outputs/
+outputs/*
+!outputs/dashboard-v1/
+!outputs/dashboard-v1/**
+!outputs/dashboard-v2/
+!outputs/dashboard-v2/**

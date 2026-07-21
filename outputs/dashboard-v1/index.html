@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Приемная кампания 360</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Навигация">
+        <div class="brand">
+          <img src="./assets/polytech_logo_main_RGB_RUS.png" alt="Московский Политех" />
+        </div>
+
+        <nav class="main-nav" aria-label="Разделы">
+          <button class="nav-item active" type="button"><span>▦</span>Дашборд</button>
+          <button class="nav-item" type="button"><span>◎</span>Направления</button>
+          <button class="nav-item" type="button"><span>♙</span>Абитуриенты</button>
+          <button class="nav-item" type="button"><span>✉</span>Коммуникации</button>
+          <button class="nav-item" type="button"><span>☑</span>Задачи</button>
+          <button class="nav-item" type="button"><span>▥</span>Аналитика</button>
+          <button class="nav-item" type="button"><span>↗</span>Отчеты</button>
+          <button class="nav-item" type="button"><span>⚙</span>Настройки</button>
+        </nav>
+
+        <section class="filters" aria-label="Фильтры">
+          <div class="filters-head">
+            <h2>Фильтры</h2>
+            <button id="resetFilters" type="button">Сбросить все</button>
+          </div>
+
+          <label>
+            Факультет
+            <select id="facultyFilter"></select>
+          </label>
+          <label>
+            Направление подготовки
+            <select id="programFilter"></select>
+          </label>
+          <label>
+            Форма обучения
+            <select id="formFilter"></select>
+          </label>
+          <label>
+            Уровень риска
+            <select id="riskFilter"></select>
+          </label>
+          <label>
+            Источник лида
+            <select id="sourceFilter"></select>
+          </label>
+          <label>
+            Статус лида
+            <select id="statusFilter"></select>
+          </label>
+        </section>
+
+        <button class="save-filter" type="button">♡ Сохранить фильтр</button>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>Цифровой центр управления приемной кампанией 2026</h1>
+            <p>Приемная кампания 360 · Московский Политех</p>
+          </div>
+          <div class="topbar-actions">
+            <span>Данные обновлены: <strong>16.07.2026, 10:30</strong></span>
+            <button id="exportReport" class="ghost-button" type="button">⇩ Экспорт отчета</button>
+            <button class="bell-button" type="button" aria-label="Уведомления">🔔<b>3</b></button>
+          </div>
+        </header>
+
+        <section id="metrics" class="metrics" aria-label="Ключевые показатели"></section>
+
+        <section class="main-grid">
+          <section class="table-card" aria-labelledby="tableTitle">
+            <div class="section-head">
+              <h2 id="tableTitle">Ситуация по направлениям</h2>
+              <div class="table-tools">
+                <input id="searchInput" type="search" placeholder="Поиск по факультету или направлению" />
+                <button id="toggleColumns" type="button">⚙ Настроить столбцы</button>
+              </div>
+            </div>
+            <div id="columnPanel" class="column-panel hidden" aria-label="Настройка столбцов"></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Факультет</th>
+                    <th>Направление подготовки / специальность</th>
+                    <th data-col="plan">План бюджет</th>
+                    <th data-col="potential">Потенциально могут подать</th>
+                    <th data-col="submitted">Подали заявления</th>
+                    <th data-col="contest">Конкурс</th>
+                    <th data-col="risk">Риск недобора</th>
+                    <th data-col="progress">Выполнение плана</th>
+                    <th data-col="action">Следующее действие</th>
+                  </tr>
+                </thead>
+                <tbody id="programRows"></tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span id="tableCount"></span>
+              <div class="pager" aria-label="Пагинация">
+                <button type="button">‹</button>
+                <button class="active" type="button">1</button>
+                <button type="button">›</button>
+              </div>
+              <label>
+                Показывать по:
+                <select id="pageSize">
+                  <option>10</option>
+                  <option selected>13</option>
+                  <option>25</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <aside class="recommendations" aria-labelledby="recTitle">
+            <h2 id="recTitle">Рекомендации ИИ</h2>
+            <div id="recommendations"></div>
+            <button id="showAllRecommendations" class="link-button" type="button">Смотреть все рекомендации →</button>
+          </aside>
+        </section>
+
+        <section class="charts">
+          <article class="chart-card">
+            <h2>Распределение по формам обучения</h2>
+            <div class="donut-layout">
+              <div id="formDonut" class="donut" role="img" aria-label="Распределение заявлений по формам обучения"></div>
+              <div id="formLegend" class="legend"></div>
+            </div>
+          </article>
+
+          <article class="chart-card">
+            <div class="chart-head">
+              <h2>Динамика поданных заявлений</h2>
+              <span id="applicationsSelectedLabel"></span>
+            </div>
+            <div id="applicationsChart" class="line-chart"></div>
+            <div id="applicationsSummary" class="chart-summary"></div>
+            <label class="chart-range">
+              <span>Период</span>
+              <input id="applicationsRange" type="range" min="0" max="5" value="5" />
+            </label>
+          </article>
+
+          <article class="chart-card payment-card">
+            <div class="chart-head">
+              <h2>Динамика оборота</h2>
+              <span id="paymentsSelectedLabel"></span>
+            </div>
+            <div id="paymentsChart" class="line-chart"></div>
+            <div id="paymentsSummary" class="chart-summary"></div>
+            <label class="chart-range">
+              <span>Период</span>
+              <input id="paymentsRange" type="range" min="0" max="5" value="5" />
+            </label>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="./src/data.js"></script>
+    <script src="./src/app.js"></script>
+  </body>
+</html>
