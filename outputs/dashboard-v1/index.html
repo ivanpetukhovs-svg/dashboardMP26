@@ -11,6 +11,7 @@
       <aside class="sidebar" aria-label="Навигация">
         <div class="brand">
           <img src="./assets/polytech_logo_main_RGB_RUS.png" alt="Московский Политех" />
+          <span>Центр управления<br />приёмной кампанией</span>
         </div>
 
         <nav class="main-nav" aria-label="Разделы">
@@ -24,9 +25,42 @@
           <button class="nav-item" type="button"><span>⚙</span>Настройки</button>
         </nav>
 
-        <section class="filters" aria-label="Фильтры">
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>Маркетинговый радар приёмной кампании 2026</h1>
+            <p>Московский Политех · V1 для работы с охватом, спросом и направлениями</p>
+          </div>
+          <div class="topbar-actions">
+            <span>Срез: <strong>22.07.2026</strong></span>
+            <button id="toggleFilters" class="filter-button" type="button" aria-expanded="false" aria-controls="filtersPanel"><span aria-hidden="true">☰</span> Фильтры</button>
+            <button id="exportReport" class="ghost-button" type="button">⇩ Экспорт отчета</button>
+            <button class="bell-button" type="button" aria-label="Уведомления">🔔<b>3</b></button>
+          </div>
+        </header>
+
+        <section class="data-context" aria-label="Статус данных">
+          <div>
+            <span class="data-badge official">Официальная опора</span>
+            <strong>16 000+ заявлений, 2 854 бюджетных места и около 80 программ</strong>
+            <small>Данные Московского Политеха на 08.07.2026</small>
+          </div>
+          <div>
+            <span class="data-badge model">Маркетинговая модель</span>
+            <strong>Прогноз на 22.07 строится от подтвержденного среза</strong>
+            <small>Модельные показатели не являются данными приёмной комиссии</small>
+          </div>
+          <a href="https://mospolytech.ru/news/abiturienty-vybirayut-moskovskiy-politekh-bolee-16-000-postupayushchikh-uzhe-podali-zayavleniya/" target="_blank" rel="noreferrer">Источник ↗</a>
+        </section>
+
+        <section id="filtersPanel" class="filters filters-main hidden" aria-label="Фильтры направлений">
           <div class="filters-head">
-            <h2>Фильтры</h2>
+            <div>
+              <h2>Фильтры направлений</h2>
+              <p>Применяются к таблице и выгрузке</p>
+            </div>
             <button id="resetFilters" type="button">Сбросить все</button>
           </div>
 
@@ -56,28 +90,15 @@
           </label>
         </section>
 
-        <button class="save-filter" type="button">♡ Сохранить фильтр</button>
-      </aside>
-
-      <main class="workspace">
-        <header class="topbar">
-          <div>
-            <h1>Цифровой центр управления приемной кампанией 2026</h1>
-            <p>Приемная кампания 360 · Московский Политех</p>
-          </div>
-          <div class="topbar-actions">
-            <span>Данные обновлены: <strong>16.07.2026, 10:30</strong></span>
-            <button id="exportReport" class="ghost-button" type="button">⇩ Экспорт отчета</button>
-            <button class="bell-button" type="button" aria-label="Уведомления">🔔<b>3</b></button>
-          </div>
-        </header>
-
         <section id="metrics" class="metrics" aria-label="Ключевые показатели"></section>
 
         <section class="main-grid">
           <section class="table-card" aria-labelledby="tableTitle">
             <div class="section-head">
-              <h2 id="tableTitle">Ситуация по направлениям</h2>
+              <div>
+                <h2 id="tableTitle">Ситуация по направлениям</h2>
+                <p>План бюджетных мест — ориентир по приказу 2026; спрос и риск — модель для маркетинговой работы.</p>
+              </div>
               <div class="table-tools">
                 <input id="searchInput" type="search" placeholder="Поиск по факультету или направлению" />
                 <button id="toggleColumns" type="button">⚙ Настроить столбцы</button>
@@ -129,7 +150,7 @@
 
         <section class="charts">
           <article class="chart-card">
-            <h2>Распределение по формам обучения</h2>
+            <h2>Распределение спроса по формам обучения</h2>
             <div class="donut-layout">
               <div id="formDonut" class="donut" role="img" aria-label="Распределение заявлений по формам обучения"></div>
               <div id="formLegend" class="legend"></div>
@@ -138,7 +159,7 @@
 
           <article class="chart-card">
             <div class="chart-head">
-              <h2>Динамика поданных заявлений</h2>
+              <h2>Динамика заявлений: факт и прогноз</h2>
               <span id="applicationsSelectedLabel"></span>
             </div>
             <div id="applicationsChart" class="line-chart"></div>
@@ -151,7 +172,7 @@
 
           <article class="chart-card payment-card">
             <div class="chart-head">
-              <h2>Динамика оборота</h2>
+              <h2>Динамика оборота · модельный сценарий</h2>
               <span id="paymentsSelectedLabel"></span>
             </div>
             <div id="paymentsChart" class="line-chart"></div>

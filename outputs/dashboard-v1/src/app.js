@@ -69,6 +69,13 @@ function setupFilters() {
     document.getElementById("searchInput").value = "";
     render();
   });
+
+  const filterPanel = document.getElementById("filtersPanel");
+  const filterToggle = document.getElementById("toggleFilters");
+  filterToggle.addEventListener("click", () => {
+    const isHidden = filterPanel.classList.toggle("hidden");
+    filterToggle.setAttribute("aria-expanded", String(!isHidden));
+  });
 }
 
 function getFilteredPrograms() {
@@ -81,7 +88,7 @@ function getFilteredPrograms() {
 
 function renderMetrics() {
   document.getElementById("metrics").innerHTML = data.metrics.map((metric) => `
-    <article class="metric-card">
+    <article class="metric-card ${metric.kind || ""}">
       <div class="metric-icon">${metric.icon}</div>
       <div>
         <p>${metric.label}</p>
@@ -160,7 +167,7 @@ function renderDonut() {
   document.getElementById("formDonut").style.background = `conic-gradient(${slices.join(",")})`;
   document.getElementById("formLegend").innerHTML = data.forms.map((item, index) => `
     <div><i style="background:${colors[index]}"></i><span>${item.label}</span><b>${item.percent}%</b><em>${formatNumber(item.value)}</em></div>
-  `).join("") + `<p>Всего подано заявлений <strong>12 842</strong></p>`;
+  `).join("") + `<p>Модель распределения заявлений <strong>16 000+</strong></p>`;
 }
 
 function createLineChart(rootId, series, options) {
@@ -218,9 +225,9 @@ function renderChartSummary(kind) {
     const diff = current - previous;
     document.getElementById("applicationsSelectedLabel").textContent = data.applicationSeries.labels[index];
     document.getElementById("applicationsSummary").innerHTML = `
-      <div><span>Текущий год</span><strong>${formatNumber(current)}</strong></div>
-      <div><span>Прошлый год</span><strong>${formatNumber(previous)}</strong></div>
-      <div><span>Разница</span><strong>${diff >= 0 ? "+" : ""}${formatNumber(diff)}</strong></div>
+      <div><span>${data.applicationSeries.labels[index].includes("*") ? "Модельный прогноз" : "Официальный срез"}</span><strong>${formatNumber(current)}</strong></div>
+      <div><span>Сценарий прошлого года</span><strong>${formatNumber(previous)}</strong></div>
+      <div><span>Разница сценариев</span><strong>${diff >= 0 ? "+" : ""}${formatNumber(diff)}</strong></div>
     `;
     return;
   }
@@ -299,11 +306,11 @@ function renderCharts() {
   renderDonut();
   createLineChart("applicationsChart", data.applicationSeries, {
     stateKey: "applications",
-    label: "Динамика поданных заявлений по месяцам",
+    label: "Динамика заявлений: официальный срез и прогноз по месяцам",
     units: { current: "заявлений", previous: "заявлений" },
     legend: [
-      { label: "Текущий год", className: "current" },
-      { label: "Прошлый год", className: "previous" }
+      { label: "2026: факт + прогноз", className: "current" },
+      { label: "Сценарий прошлого года", className: "previous" }
     ],
     lines: [
       { key: "current", className: "current", directLabel: true },
