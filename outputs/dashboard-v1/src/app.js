@@ -72,9 +72,23 @@ function setupFilters() {
 
   const filterPanel = document.getElementById("filtersPanel");
   const filterToggle = document.getElementById("toggleFilters");
+  const closeFilters = document.getElementById("closeFilters");
+  const setFiltersOpen = (open) => {
+    filterPanel.classList.toggle("hidden", !open);
+    filterToggle.setAttribute("aria-expanded", String(open));
+  };
+
   filterToggle.addEventListener("click", () => {
-    const isHidden = filterPanel.classList.toggle("hidden");
-    filterToggle.setAttribute("aria-expanded", String(!isHidden));
+    setFiltersOpen(filterPanel.classList.contains("hidden"));
+  });
+  closeFilters.addEventListener("click", () => setFiltersOpen(false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setFiltersOpen(false);
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if (!filterPanel.classList.contains("hidden") && !filterPanel.contains(event.target) && !filterToggle.contains(event.target)) {
+      setFiltersOpen(false);
+    }
   });
 }
 
@@ -167,7 +181,7 @@ function renderDonut() {
   document.getElementById("formDonut").style.background = `conic-gradient(${slices.join(",")})`;
   document.getElementById("formLegend").innerHTML = data.forms.map((item, index) => `
     <div><i style="background:${colors[index]}"></i><span>${item.label}</span><b>${item.percent}%</b><em>${formatNumber(item.value)}</em></div>
-  `).join("") + `<p>Модель распределения заявлений <strong>16 000+</strong></p>`;
+  `).join("") + `<p>Всего подано заявлений <strong>12 842</strong></p>`;
 }
 
 function createLineChart(rootId, series, options) {
@@ -225,9 +239,9 @@ function renderChartSummary(kind) {
     const diff = current - previous;
     document.getElementById("applicationsSelectedLabel").textContent = data.applicationSeries.labels[index];
     document.getElementById("applicationsSummary").innerHTML = `
-      <div><span>${data.applicationSeries.labels[index].includes("*") ? "Модельный прогноз" : "Официальный срез"}</span><strong>${formatNumber(current)}</strong></div>
-      <div><span>Сценарий прошлого года</span><strong>${formatNumber(previous)}</strong></div>
-      <div><span>Разница сценариев</span><strong>${diff >= 0 ? "+" : ""}${formatNumber(diff)}</strong></div>
+      <div><span>Текущий год</span><strong>${formatNumber(current)}</strong></div>
+      <div><span>Прошлый год</span><strong>${formatNumber(previous)}</strong></div>
+      <div><span>Разница</span><strong>${diff >= 0 ? "+" : ""}${formatNumber(diff)}</strong></div>
     `;
     return;
   }
@@ -306,11 +320,11 @@ function renderCharts() {
   renderDonut();
   createLineChart("applicationsChart", data.applicationSeries, {
     stateKey: "applications",
-    label: "Динамика заявлений: официальный срез и прогноз по месяцам",
+    label: "Динамика поданных заявлений по месяцам",
     units: { current: "заявлений", previous: "заявлений" },
     legend: [
-      { label: "2026: факт + прогноз", className: "current" },
-      { label: "Сценарий прошлого года", className: "previous" }
+      { label: "Текущий год", className: "current" },
+      { label: "Прошлый год", className: "previous" }
     ],
     lines: [
       { key: "current", className: "current", directLabel: true },

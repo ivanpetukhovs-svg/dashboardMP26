@@ -1,12 +1,13 @@
 window.ADMISSIONS_360_DATA = {
-  updatedAt: "22.07.2026",
+  updatedAt: "16.07.2026, 10:30",
   metrics: [
-    { id: "submitted", kind: "official", icon: "📄", label: "Заявлений подано", value: "16 000+", delta: "официально на 08.07.2026" },
-    { id: "budget", kind: "official", icon: "◐", label: "Бюджетных мест", value: 2854, delta: "бакалавриат, все формы" },
-    { id: "programs", kind: "official", icon: "▦", label: "Образовательных программ", value: "≈80", delta: "официальный ориентир 2026" },
-    { id: "forecast", kind: "model", icon: "↗", label: "Прогноз заявлений", value: "20 400", delta: "модель на 22.07.2026" },
-    { id: "competition", kind: "model", icon: "◌", label: "Заявлений на место", value: "7,1×", delta: "прогноз / бюджетные места" },
-    { id: "deadline", kind: "official", icon: "◷", label: "Приём документов", value: "25 июля", delta: "срок из публикации университета" }
+    { id: "leads", icon: "👥", label: "Потенциальные абитуриенты", value: 43218, delta: "↑ 8% к прошлой неделе" },
+    { id: "submitted", icon: "📄", label: "Подали заявления", value: 12842, delta: "↑ 12% к прошлой неделе" },
+    { id: "conversion", icon: "▽", label: "Конверсия в подачу", value: "29,7%", delta: "↑ 2,3 п.п. к прошлой неделе" },
+    { id: "agreements", icon: "🤝", label: "Согласия на зачисление", value: 2954, delta: "↑ 754 к прошлой неделе" },
+    { id: "highScore", icon: "☆", label: "Высокобалльники (80+ баллов)", value: 1386, delta: "↑ 189 к прошлой неделе" },
+    { id: "budget", icon: "◐", label: "Бюджет заполнен", value: "77,8%", delta: "1 284 / 1 650", progress: 77.8 },
+    { id: "paid", icon: "₽", label: "Платный набор заполнен", value: "76,6%", delta: "2 146 / 2 800", progress: 76.6 }
   ],
   programs: [
     {
@@ -213,14 +214,14 @@ window.ADMISSIONS_360_DATA = {
     { priority: 5, tone: "violet", action: "Передать 27 перспективных абитуриентов в работу приемной комиссии", count: 27, unit: "чел." }
   ],
   forms: [
-    { label: "Очная", value: 11520, percent: 72 },
-    { label: "Очно-заочная", value: 2880, percent: 18 },
-    { label: "Заочная", value: 1600, percent: 10 }
+    { label: "Очная", value: 9212, percent: 72 },
+    { label: "Очно-заочная", value: 2307, percent: 18 },
+    { label: "Заочная", value: 1323, percent: 10 }
   ],
   applicationSeries: {
-    labels: ["Март", "Апрель", "Май", "Июнь", "08 июл", "22 июл*", "25 июл*"],
-    current: [700, 4200, 8800, 11800, 16000, 20400, 22100],
-    previous: [450, 3100, 6500, 8300, 10231, 12900, 14100]
+    labels: ["Март", "Апрель", "Май", "Июнь", "Июль", "Август"],
+    current: [700, 4200, 8800, 11800, 12842, 12842],
+    previous: [450, 3100, 6500, 8300, 10231, 10231]
   },
   paymentSeries: {
     labels: ["Март", "Апрель", "Май", "Июнь", "Июль", "Август"],
