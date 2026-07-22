@@ -7,7 +7,7 @@ window.ADMISSIONS_360_DATA = {
     { id: "agreements", icon: "🤝", label: "Согласия на зачисление", value: 2954, delta: "↑ 754 к прошлой неделе" },
     { id: "highScore", icon: "☆", label: "Высокобалльники (80+ баллов)", value: 1386, delta: "↑ 189 к прошлой неделе" },
     { id: "budget", icon: "◐", label: "Бюджет заполнен", value: "77,8%", delta: "1 284 / 1 650", progress: 77.8 },
-    { id: "paid", icon: "₽", label: "Платный набор заполнен", value: "76,6%", delta: "2 146 / 2 800", progress: 76.6 }
+    { id: "paid", icon: "₽", label: "Платный набор заполнен", value: "76,6%", delta: "2 146 / 2 800", progress: 76.6, secondaryLabel: "Сумма платного набора", secondaryValue: "214 млн ₽" }
   ],
   programs: [
     {

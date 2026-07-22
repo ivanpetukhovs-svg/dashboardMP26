@@ -102,16 +102,33 @@ function getFilteredPrograms() {
 
 function renderMetrics() {
   document.getElementById("metrics").innerHTML = data.metrics.map((metric) => `
-    <article class="metric-card ${metric.kind || ""}">
+    <article class="metric-card metric-${metric.id} ${metric.kind || ""}">
       <div class="metric-icon">${metric.icon}</div>
-      <div>
+      <div class="metric-content">
         <p>${metric.label}</p>
         <strong>${formatNumber(metric.value)}</strong>
         <span>${metric.delta}</span>
         ${metric.progress ? `<div class="mini-progress"><i style="width:${metric.progress}%"></i></div>` : ""}
       </div>
+      ${metric.secondaryValue ? `<div class="metric-secondary"><span>${metric.secondaryLabel}</span><strong>${metric.secondaryValue}</strong></div>` : ""}
     </article>
   `).join("");
+}
+
+function setupNavigation() {
+  const toggle = document.getElementById("toggleNavigation");
+  const navigation = document.getElementById("mainNavigation");
+  const setNavigationOpen = (open) => {
+    navigation.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+  };
+
+  toggle.addEventListener("click", () => setNavigationOpen(!navigation.classList.contains("open")));
+  navigation.querySelectorAll(".nav-item").forEach((item) => {
+    item.addEventListener("click", () => {
+      if (window.matchMedia("(max-width: 760px)").matches) setNavigationOpen(false);
+    });
+  });
 }
 
 function riskClass(risk) {
@@ -368,6 +385,7 @@ document.getElementById("paymentsRange").addEventListener("input", (event) => {
 });
 
 setupFilters();
+setupNavigation();
 setupColumnPanel();
 setupExport();
 renderCharts();
